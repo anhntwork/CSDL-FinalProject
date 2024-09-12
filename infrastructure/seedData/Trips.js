@@ -22,7 +22,7 @@ async function seedTrips() {
             driver: driver1._id,
             assistantDriver: assistantDriver1._id,
             passengers: 28,
-            ticketPrice: 150000,
+            ticketPrice: 100000,
             date: new Date('2024-09-12')
         },
         {
@@ -31,7 +31,7 @@ async function seedTrips() {
             driver: driver1._id,
             assistantDriver: assistantDriver1._id,
             passengers: 26,
-            ticketPrice: 150000,
+            ticketPrice: 100000,
             date: new Date('2024-09-13')
         },
         {
