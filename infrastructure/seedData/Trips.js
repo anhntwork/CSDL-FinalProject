@@ -12,45 +12,41 @@ async function seedTrips() {
     const driver2 = await Driver.findOne({ name: 'Trần Thị B' });
     const assistantDriver2 = await Driver.findOne({ name: 'Nguyễn Văn A' });
 
-    const route1 = await Route.findOne({ startPoint: 'Hà Nội', endPoint: 'Hải Phòng' });
-    const route2 = await Route.findOne({ startPoint: 'Hà Nội', endPoint: 'Sài Gòn' });
+    const bus3 = await Bus.findOne({ licensePlate: '30B-67999' });
+    const driver3 = await Driver.findOne({ name: 'Lê Văn C' });
+    const assistantDriver3 = await Driver.findOne({ name: 'Nguyễn Văn A' });
+
+    const route1 = await Route.findOne({ startPoint: 'Hà Nội', endPoint: 'Đà Nẵng' });
+    const route2 = await Route.findOne({ startPoint: 'Hồ Chí Minh', endPoint: 'Nha Trang' });
+    const route3 = await Route.findOne({ startPoint: 'Hải Phòng', endPoint: 'Nam Định' });
 
     const trips = [
         {
-            bus: bus1._id,
-            route: route1._id,
-            driver: driver1._id,
-            assistantDriver: assistantDriver1._id,
-            passengers: 28,
-            ticketPrice: 100000,
-            date: new Date('2024-09-12')
+            "bus": bus1.id,
+            "route": route1.id,
+            "driver": driver1.id,
+            "assistantDriver": assistantDriver1.id,
+            "passengers": 40,
+            "ticketPrice": 150000,
+            "date": "2024-09-05"
         },
         {
-            bus: bus1._id,
-            route: route1._id,
-            driver: driver1._id,
-            assistantDriver: assistantDriver1._id,
-            passengers: 26,
-            ticketPrice: 100000,
-            date: new Date('2024-09-13')
+            "bus": bus2.id,
+            "route": route2.id,
+            "driver": driver2.id,
+            "assistantDriver": assistantDriver2.id,
+            "passengers": 30,
+            "ticketPrice": 200000,
+            "date": "2024-09-12"
         },
         {
-            bus: bus2._id,
-            route: route2._id,
-            driver: driver2._id,
-            assistantDriver: assistantDriver2._id,
-            passengers: 26,
-            ticketPrice: 150000,
-            date: new Date('2024-09-14')
-        },
-        {
-            bus: bus2._id,
-            route: route2._id,
-            driver: driver2._id,
-            assistantDriver: assistantDriver2._id,
-            passengers: 28,
-            ticketPrice: 150000,
-            date: new Date('2024-09-15')
+            "bus": bus3.id,
+            "route": route3.id,
+            "driver": driver3.id,
+            "assistantDriver": assistantDriver3.id,
+            "passengers": 25,
+            "ticketPrice": 80000,
+            "date": "2024-09-15"
         }
     ];
 

@@ -4,7 +4,7 @@ const Bus = require("./infrastructure/schema/busSchema")
 const Driver = require("./infrastructure/schema/driverSchema")
 
 const calculateDriverSalary = async () => {
-    const salaryFactors = require('./constants/salaryFactors')
+    const salaryFactors = require('./infrastructure/constants/salaryFactors')
 
     const calculateSalary = async (driverId, month, year) => {
         const trips = await Trip.find({
@@ -91,7 +91,7 @@ const calculateRevenue = async (startDate, endDate) => {
 };
 
 const checkBusMaintenance = async () => {
-    const difficultyFactors = require("./constants/difficultyFactors")
+    const difficultyFactors = require("./infrastructure/constants/difficultyFactors")
     const calculateNextMaintenanceDate = async (bus) => {
         const trips = await Trip.find({ bus: bus._id }).populate('route');
 
