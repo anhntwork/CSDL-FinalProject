@@ -2,17 +2,35 @@ const Route = require("./infrastructure/schema/routeSchema")
 const Trip = require("./infrastructure/schema/tripSchema")
 const Bus = require("./infrastructure/schema/busSchema")
 const Driver = require("./infrastructure/schema/driverSchema")
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const calculateDriverSalary = async () => {
     const salaryFactors = require('./infrastructure/constants/salaryFactors')
 
     const calculateSalary = async (driverId, month, year) => {
+        if (!ObjectId.isValid(driverId)) {
+            throw new Error('Invalid driverId');
+        }
+
+        const driverObjectId = new ObjectId(driverId);
+        const startDate = new Date(year, month - 2, 1);
+        const endDate = new Date(year, month - 1, 1);
+
         const trips = await Trip.find({
-            $or: [{ driver: driverId }, { assistantDriver: driverId }],
-            date: {
-                $gte: new Date(year, month - 1, 1),
-                $lt: new Date(year, month, 1)
-            }
+            $and: [
+                {
+                    $or: [
+                        { driver: driverObjectId },
+                        { assistantDriver: driverObjectId }
+                    ]
+                },
+                {
+                    $and: [
+                        { date: { $gte: startDate } },
+                        { date: { $lt: endDate } }
+                    ]
+                }
+            ]
         }).populate('route');
 
         let totalSalary = 0;
@@ -21,11 +39,9 @@ const calculateDriverSalary = async () => {
             const routeComplexity = trip.route.complexity;
             const tripSalary = salaryFactors[routeComplexity] || 0;
 
-            if (trip.driver.equals(driverId)) {
-                // Lái xe có lương gấp đôi
+            if (trip.driver.equals(driverObjectId)) {
                 totalSalary += tripSalary * 2;
-            } else if (trip.assistantDriver.equals(driverId)) {
-                // Phụ xe có lương bình thường
+            } else if (trip.assistantDriver.equals(driverObjectId)) {
                 totalSalary += tripSalary;
             }
         });
@@ -42,7 +58,7 @@ const calculateDriverSalary = async () => {
         const salaries = [];
 
         for (const driver of drivers) {
-            const salary = await calculateSalary(driver._id, month, year);
+            const salary = await calculateSalary(driver.id, month, year);
             salaries.push({
                 name: driver.name,
                 salary: salary

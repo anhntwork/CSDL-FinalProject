@@ -9,12 +9,12 @@ async function seedTrips() {
     const assistantDriver1 = await Driver.findOne({ name: 'Trần Thị B' });
 
     const bus2 = await Bus.findOne({ licensePlate: '30B-67890' });
-    const driver2 = await Driver.findOne({ name: 'Trần Thị B' });
+    const driver2 = await Driver.findOne({ name: 'Lê Văn C' });
     const assistantDriver2 = await Driver.findOne({ name: 'Nguyễn Văn A' });
 
     const bus3 = await Bus.findOne({ licensePlate: '30B-67999' });
-    const driver3 = await Driver.findOne({ name: 'Lê Văn C' });
-    const assistantDriver3 = await Driver.findOne({ name: 'Nguyễn Văn A' });
+    const driver3 = await Driver.findOne({ name: 'Trần Thị B' });
+    const assistantDriver3 = await Driver.findOne({ name: 'Lê Văn C' });
 
     const route1 = await Route.findOne({ startPoint: 'Hà Nội', endPoint: 'Đà Nẵng' });
     const route2 = await Route.findOne({ startPoint: 'Hồ Chí Minh', endPoint: 'Nha Trang' });
